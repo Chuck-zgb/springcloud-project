@@ -4,9 +4,12 @@ import com.chuck.common.CommonResult;
 import com.chuck.entity.Payment;
 import com.chuck.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @BelongsProject: study
@@ -21,6 +24,30 @@ import javax.annotation.Resource;
 public class PaymentController {
     @Resource
     private PaymentService paymentService;
+
+    @Resource
+    private DiscoveryClient discoveryClient;
+
+    /**
+     * @descrition：对于注册进eureka里面的微服务，可以通过服务发现来获得该服务的信息
+     * @auther: kejizhentan
+     * @date: 2022/5/9 17:27
+     */
+    @GetMapping(value = "/payment/discovery")
+    public Object discovery() {
+        //获取所注册eureka里面的所有服务名称
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            System.out.println(element);
+        }
+        //获取某个具体服务名称下的服务信息
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance element : instances) {
+            System.out.println(element.getServiceId() + "\t" + element.getHost() + "\t" + element.getPort() + "\t"
+                    + element.getUri());
+        }
+        return this.discoveryClient;
+    }
 
     @PostMapping(value = "/payment/create")
     public CommonResult create(@RequestBody Payment payment) {
