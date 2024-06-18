@@ -1,4 +1,4 @@
-package com.chuck.springcloud.com.chuck.springcloud;
+package com.chuck.springcloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

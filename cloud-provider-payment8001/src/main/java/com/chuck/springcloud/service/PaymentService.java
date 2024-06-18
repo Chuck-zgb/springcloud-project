@@ -1,10 +1,8 @@
-package com.chuck.dao;
+package com.chuck.springcloud.service;
 
 import com.chuck.entity.Payment;
-import org.apache.ibatis.annotations.Mapper;
+public interface PaymentService{
 
-@Mapper
-public interface PaymentMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(Payment record);
@@ -16,4 +14,5 @@ public interface PaymentMapper {
     int updateByPrimaryKeySelective(Payment record);
 
     int updateByPrimaryKey(Payment record);
+
 }

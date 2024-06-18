@@ -1,8 +1,8 @@
-package com.chuck.api;
+package com.chuck.springcloud.api;
 
 import com.chuck.common.CommonResult;
 import com.chuck.entity.Payment;
-import com.chuck.service.PaymentService;
+import com.chuck.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

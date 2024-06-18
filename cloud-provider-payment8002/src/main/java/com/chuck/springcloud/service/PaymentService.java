@@ -1,4 +1,4 @@
-package com.chuck.service;
+package com.chuck.springcloud.service;
 
 import com.chuck.entity.Payment;
 public interface PaymentService{

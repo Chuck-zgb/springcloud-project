@@ -1,12 +1,10 @@
-package com.chuck.service.impl;
-
-import org.springframework.stereotype.Service;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package com.chuck.springcloud.service.impl;
 
 import com.chuck.entity.Payment;
-import com.chuck.dao.PaymentMapper;
-import com.chuck.service.PaymentService;
+import com.chuck.springcloud.dao.PaymentMapper;
+import com.chuck.springcloud.service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService{
 
