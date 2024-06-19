@@ -4,12 +4,14 @@ import com.chuck.common.CommonResult;
 import com.chuck.entity.Payment;
 import com.chuck.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @BelongsProject: study
@@ -22,6 +24,8 @@ import java.util.List;
 @RestController
 @Slf4j
 public class PaymentController {
+    @Value("${server.port}")
+    private String serverPort;
     @Resource
     private PaymentService paymentService;
 
@@ -66,10 +70,27 @@ public class PaymentController {
         Payment payment = paymentService.selectByPrimaryKey(id);
         log.info("*****查询结果:{}", payment);
         if (payment != null) {
-            return new CommonResult(200, "查询成功", payment);
+            return new CommonResult(200, "查询成功,服务端口：8001", payment);
         } else {
             return new CommonResult(444, "没有对应记录,查询ID: " + id, null);
         }
+    }
+
+    /**
+     * @descrition：编写一个方式让程序睡三秒
+     * @auther: kejizhentan
+     * @date: 2022/5/10 18:55
+     */
+    @GetMapping(value = "/payment/feign/timeout")
+    public String paymentFeignTimeOut() {
+        System.out.println("*****paymentFeignTimeOut from port: " + serverPort);
+        //暂停几秒钟线程
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
     }
 }
 
